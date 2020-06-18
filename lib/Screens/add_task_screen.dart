@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todoeyflutter/Models/task_data.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
-class AddTaskScreen extends StatelessWidget {
+class AddTaskScreen extends StatefulWidget {
+  @override
+  _AddTaskScreenState createState() => _AddTaskScreenState();
+}
+
+class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   Widget build(BuildContext context) {
     String typedValue;
@@ -52,9 +59,6 @@ class AddTaskScreen extends StatelessWidget {
                 color: Colors.grey.shade700,
                 fontSize: 25.0,
               ),
-            ),
-            SizedBox(
-              height: 15.0,
             ),
             FlatButton(
               child: Text(

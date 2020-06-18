@@ -1,23 +1,19 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
-import 'package:todoeyflutter/Database/database.dart';
 import 'package:todoeyflutter/Models/task.dart';
 
 class TaskData extends ChangeNotifier {
-  DatabaseHelper db;
   List<Task> _taskList = [
     Task(title: 'Add any Task'),
   ];
 
   TaskData() {
-    db = DatabaseHelper();
     getAllTasks();
   }
 
   void getAllTasks() async {
-    await db.openConnection();
-    _taskList = await db.tasks();
+    _taskList = await Task.tasks();
     notifyListeners();
   }
 
@@ -31,20 +27,20 @@ class TaskData extends ChangeNotifier {
 
   void addTask(taskString) async {
     final task = Task(title: taskString);
+    await task.insertTask();
     _taskList.add(task);
-    await db.insertTask(task);
     notifyListeners();
   }
 
   void updateTask(Task task) async {
     task.toggleDone();
-    await db.updateTask(task);
+    await task.updateTask();
     notifyListeners();
   }
 
   void deleteTask(Task task) async {
     _taskList.remove(task);
-    await db.deleteTask(task.id);
+    await task.deleteTask();
     notifyListeners();
   }
 }
