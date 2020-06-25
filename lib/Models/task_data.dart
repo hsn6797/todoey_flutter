@@ -13,7 +13,11 @@ class TaskData extends ChangeNotifier {
   }
 
   void getAllTasks() async {
-    _taskList = await Task.tasks();
+//    _taskList = await Task.tasks();
+//    notifyListeners();
+
+    _taskList = await Task.getTasks();
+    _taskList.sort((b, a) => a.id.compareTo(b.id));
     notifyListeners();
   }
 
@@ -26,21 +30,34 @@ class TaskData extends ChangeNotifier {
   }
 
   void addTask(taskString) async {
+//    final task = Task(title: taskString);
+//    await task.insertTask();
+//    _taskList.add(task);
+//    notifyListeners();
+
     final task = Task(title: taskString);
-    await task.insertTask();
-    _taskList.add(task);
+    await task.postTask();
+    _taskList.insert(0, task);
+//    _taskList.add(task);
     notifyListeners();
   }
 
   void updateTask(Task task) async {
+//    task.toggleDone();
+//    await task.updateTask();
+//    notifyListeners();
     task.toggleDone();
-    await task.updateTask();
+    await task.putTask();
     notifyListeners();
   }
 
   void deleteTask(Task task) async {
-    _taskList.remove(task);
+//    _taskList.remove(task);
+//    await task.removeTask();
+//    notifyListeners();
+
     await task.deleteTask();
+    _taskList.remove(task);
     notifyListeners();
   }
 }
