@@ -17,6 +17,7 @@ class TasksList extends StatelessWidget {
               isChecked: task.isDone,
               checkboxCallback: (bool checkboxState) {
                 taskData.updateTask(task);
+//                print(task.audioName);
               },
               longPressCallback: () {
                 AwesomeDialog(
@@ -32,6 +33,7 @@ class TasksList extends StatelessWidget {
                   },
                 )..show();
               },
+              task: task,
             );
           },
           itemCount: taskData.taskCount,

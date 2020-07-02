@@ -4,6 +4,8 @@ import 'add_task_screen.dart';
 import 'package:todoeyflutter/Models/task_data.dart';
 import 'package:provider/provider.dart';
 
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+
 class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -69,6 +71,7 @@ class TasksScreen extends StatelessWidget {
             ),
             Expanded(
               child: Container(
+                width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -77,7 +80,11 @@ class TasksScreen extends StatelessWidget {
                     topRight: Radius.circular(20.0),
                   ),
                 ),
-                child: TasksList(),
+                child: ModalProgressHUD(
+                  child: TasksList(),
+                  inAsyncCall: Provider.of<TaskData>(context).isLoading,
+                  color: Colors.transparent,
+                ),
               ),
             )
           ],

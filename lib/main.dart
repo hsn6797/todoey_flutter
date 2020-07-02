@@ -8,10 +8,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  double percentage = 0.0;
+
   @override
   Widget build(BuildContext context) {
+    // Custom body test
+
     return ChangeNotifierProvider(
-      create: (context) => TaskData(),
+      create: (context) => TaskData(context),
       child: MaterialApp(
         home: TasksScreen(),
       ),
